@@ -10,6 +10,7 @@
     name: "{{item.name}}"
     password: "{{ item.pass | default(omit) }}"
     encrypted: "{{ item.encrypted | default(omit) }}"
+    no_password_changes: "{{ item.no_password_changes | default(omit) }}"
     port: "{{postgresql_port}}"
     state: "{{ item.state | default('present') }}"
     login_user: "{{postgresql_admin_user}}"
