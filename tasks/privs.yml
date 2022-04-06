@@ -19,4 +19,3 @@
   become_user: "{{postgresql_admin_user}}"
   with_items: "{{postgresql_privs}}"
   when: postgresql_privs|length > 0
-# database, grant_option, objs, privs, schema, state, target_roles, type, usage_on_types
