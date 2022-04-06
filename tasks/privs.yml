@@ -1,0 +1,22 @@
+# file: postgresql/tasks/users_privileges.yml
+
+- name: PostgreSQL | Make sure the PostgreSQL privileges are present
+  postgresql_privs:
+    database: "{{ item.db }}"
+    grant_option: "{{item.grant_option | default(omit)}}"
+    objs: "{{item.objs | default(omit)}}"
+    privs: "{{item.privs | default(omit)}}"
+    roles: "{{ item.roles }}"
+    schema: "{{item.schema | default(omit)}}"
+    state: "{{item.state | default(omit)}}"
+    target_roles: "{{item.target_roles | default(omit)}}"
+    type: "{{item.type | default(omit)}}"
+    usage_on_types: "{{item.usage_on_types | default(omit)}}"
+    port: "{{ postgresql_port }}"
+    login_host: "{{item.host | default(omit)}}"
+    login_user: "{{postgresql_admin_user}}"
+  become: yes
+  become_user: "{{postgresql_admin_user}}"
+  with_items: "{{postgresql_privs}}"
+  when: postgresql_privs|length > 0
+# database, grant_option, objs, privs, schema, state, target_roles, type, usage_on_types
