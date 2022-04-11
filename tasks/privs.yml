@@ -1,4 +1,4 @@
-# file: postgresql/tasks/users_privileges.yml
+# file: postgresql/tasks/privs.yml
 
 - name: PostgreSQL | Make sure the PostgreSQL privileges are present
   postgresql_privs:
