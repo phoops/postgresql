@@ -40,6 +40,9 @@
 - import_tasks: users.yml
   tags: [postgresql, postgresql-users]
 
+- import_tasks: tablespaces.yml
+  tags: [postgresql, postgresql-tablespaces]
+
 - import_tasks: databases.yml
   tags: [postgresql, postgresql-databases]
 

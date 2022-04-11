@@ -1,0 +1,27 @@
+# file: postgresql/tasks/tablespaces.yml
+
+- name: PostgreSQL | Make sure the PostgreSQL tablespaces' directories are present
+  file:
+    name: '{{ item.location }}'
+    state: directory
+    owner: "{{ postgresql_service_user }}"
+    group: "{{ postgresql_service_group }}"
+    mode: 0700
+  become: yes
+  with_items: "{{postgresql_tablespaces}}"
+  when: item.location != ""
+
+- name: PostgreSQL | Make sure the PostgreSQL tablespaces are present
+  postgresql_tablespace:
+    tablespace: "{{ item.name }}"
+    location: "{{item.location | default(omit)}}"
+    owner: "{{item.owner | default(omit)}}"
+    state: "{{item.state | default(omit)}}"
+    target_roles: "{{item.target_roles | default(omit)}}"
+    port: "{{ postgresql_port }}"
+    login_host: "{{item.host | default(omit)}}"
+    login_user: "{{postgresql_admin_user}}"
+  become: yes
+  become_user: "{{postgresql_admin_user}}"
+  with_items: "{{postgresql_tablespaces}}"
+  when: postgresql_tablespaces|length > 0

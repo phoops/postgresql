@@ -12,6 +12,7 @@
     encoding: "{{ item.encoding | default(postgresql_encoding) }}"
     lc_collate: "{{ item.lc_collate | default(postgresql_locale) }}"
     lc_ctype: "{{ item.lc_ctype | default(postgresql_ctype) }}"
+    tablespace: "{{ item.tablespace | default(omit) }}"
     port: "{{postgresql_port}}"
     template: "template0"
     state: "{{ item.state | default('present') }}"
